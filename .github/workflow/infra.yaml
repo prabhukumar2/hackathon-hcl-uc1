@@ -1,0 +1,52 @@
+name: Infra Provisioning through Terraform
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy (eg..., dev, staging, prod)"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+        - dev
+        - staging
+        - prod
+
+  push:
+     branches:
+       - main
+  pull_request:
+     branches:
+      - main
+      
+permissions:
+  contents: read
+  pull-requests: write   
+  id-token: write  
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step: Set up Terraform
+      - name: Set up Terraform
+        
+
+      - name: configure aws credentials
+             
+
+      - name: Install TFLint
+        
+
+
+      #Step: Run TFLint
+      - name: Run TFLint
+        
+          
+      # Step: Terraform Execute
+      

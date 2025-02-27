@@ -1,0 +1,34 @@
+name: Build and Push Docker Images to ECR
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write  
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      
+
+    # Set up Docker Buildx
+    - name: Set up Docker Buildx
+      
+
+    - name: configure aws credentials
+     
+
+    # Log in to Amazon ECR
+    - name: Log in to Amazon ECR
+      
+
+    # Build, tag, and push Docker image for Hello World Service
+    - name: Build, Tag & Push Docker Image for Hello World Service
+      
+    - name: Cleanup local Docker images
+      
+        
