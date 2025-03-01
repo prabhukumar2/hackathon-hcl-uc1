@@ -2,10 +2,14 @@ name: Build and Push Docker Images to ECR
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+    - main
+    
 
 permissions:
   contents: read
-  id-token: write  
+  id-token: write
 
 jobs:
   build-and-push:
@@ -13,13 +17,22 @@ jobs:
 
     steps:
     - name: Checkout code
+      uses: actions/checkout@v1
       
 
     # Set up Docker Buildx
     - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
       
 
     - name: configure aws credentials
+      uses:
+      with:
+        aws-access-key-id: ${{ secrets.AKIAX3NVJFI7KIIZTS62}}
+        aws-secret-access-key: ${{ secrets.NkQdFmDu2iLLRUc2ZaV9QR+7x9elJO57j1dbJeRZ}}
+        aws-region: ${{ secrets.Global}}
+    
+    
      
 
     # Log in to Amazon ECR
@@ -27,8 +40,20 @@ jobs:
       
 
     # Build, tag, and push Docker image for Hello World Service
-    - name: Build, Tag & Push Docker Image for Hello World Service
+    - name: Build image name
+      run: |
+        docker build -t ${{secrets.ECR_REPOSITORY}}
+
+    - name: Tag image name
+      run: |
+        docker tag ${{ secrets.ECR_REPOSIORY}}:latest ${{ secrets.hcl-aws-gp-cnc}}.dkr.ecr.${{secrets.Global}}.amazonaws.com/${{secrets.ECR_REPOSIORY}}:latest
+
+    - name: Push image to ECR
+      run: |
+        docker push${{ secrets.hcl-aws-gp-cnc }}.dkr.ecr.${{ secrets.ECR_REPOSITORY}}:latest
       
     - name: Cleanup local Docker images
+      run: |
+        docker prune
       
         
