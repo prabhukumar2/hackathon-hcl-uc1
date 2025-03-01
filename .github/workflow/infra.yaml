@@ -35,17 +35,39 @@ jobs:
 
       # Step: Set up Terraform
       - name: Set up Terraform
+        uses: hasicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.0
+
+      - name: Terraform init
+        run: Terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply (if running on main)
+        run: terraform apply -auto-approve
+          
         
 
       - name: configure aws credentials
+        uses:
+        with:
+          aws-access-key-id: ${{ secrets.AKIAX3NVJFI7KIIZTS62}}
+          aws-secret-access-key: ${{ secrets.NkQdFmDu2iLLRUc2ZaV9QR+7x9elJO57j1dbJeRZ}}
+          aws-region: ${{ secrets.Global}}
              
 
       - name: Install TFLint
-        
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install.sh | bash
 
 
       #Step: Run TFLint
       - name: Run TFLint
+        run: |
+          tflint --init
+          tflint
         
           
       # Step: Terraform Execute
